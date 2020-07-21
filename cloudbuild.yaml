@@ -27,3 +27,5 @@ steps:
       - '$_CLUSTER_NAME'
       - '--cluster-location'
       - '$_CLUSTER_ZONE'
+      - "--port"
+      - "80"
