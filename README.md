@@ -1,7 +1,7 @@
 
 # Kube Google Cloud Serveless
 
-A repository to exemplify Google's Cloud Run with GKE usage to deploy a Hello World app. 
+A repository to exemplify Google's Cloud Build, Cloud Run with GKE usage to deploy a Hello World app. 
 
 ## Project structure
 
