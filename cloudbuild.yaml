@@ -24,6 +24,6 @@ steps:
       - '--platform'
       - 'gke'
       - '--cluster'
-      - 'prv-compradecarteiras'
+      - '$_CLUSTER_NAME'
       - '--cluster-location'
-      - 'us-east1-c'
+      - '$_CLUSTER_ZONE'
