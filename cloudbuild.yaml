@@ -1,12 +1,4 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker' 
-    id: 'Pull'
-    entrypoint: 'bash'
-    args: [
-    '-c', 
-    'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
-    ]
-
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Build'
     args:
@@ -14,6 +6,12 @@ steps:
       - '-t'
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
       - '.'
+      
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
 
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'Deploy'
@@ -31,21 +29,3 @@ steps:
       - '$_CLUSTER_ZONE'
       - "--port"
       - "5000"
-      
-  - name: 'gcr.io/cloud-builders/kubectl'
-    id: 'Push'
-    args: [
-    'set', 
-    'image', 
-    'deployment', 
-    '$PROJECT_ID', 
-    '$PROJECT_ID=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
-    ]
-    env:
-    - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-  # push images to Google Container Registry with tags
-images: [
-  'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
-  'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-  ]
