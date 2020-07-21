@@ -28,4 +28,4 @@ steps:
       - '--cluster-location'
       - '$_CLUSTER_ZONE'
       - "--port"
-      - "80"
+      - "5000"
